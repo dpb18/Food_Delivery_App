@@ -116,7 +116,7 @@ export const ProfileModal = ({ isOpen, onClose }) => {
 
   return createPortal(
     <div style={styles.backdrop} onClick={onClose}>
-      <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div className="modal-responsive" style={styles.modal} onClick={(e) => e.stopPropagation()}>
         {/* Close Button */}
         <button onClick={onClose} style={styles.closeBtn} title="Close">
           <X size={18} color="#9ca3af" />

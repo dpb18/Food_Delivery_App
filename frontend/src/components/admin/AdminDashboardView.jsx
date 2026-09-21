@@ -138,7 +138,7 @@ export const AdminDashboardView = () => {
         </div>
 
         {/* Tab Switcher */}
-        <div style={styles.tabPillGroup}>
+        <div className="no-scrollbar" style={styles.tabPillGroup}>
           <button
             onClick={() => setActiveTab('orders')}
             style={{
@@ -515,7 +515,7 @@ export const AdminDashboardView = () => {
       {/* MODAL: ADD PRODUCT WITH AI NUTRITION */}
       {showAddDishModal && (
         <div style={styles.modalBackdrop} onClick={() => setShowAddDishModal(false)}>
-          <div style={styles.modalBody} onClick={(e) => e.stopPropagation()}>
+          <div className="modal-responsive" style={styles.modalBody} onClick={(e) => e.stopPropagation()}>
             <div style={styles.modalTopRow}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Sparkles size={20} color="#8b5cf6" />
@@ -530,7 +530,7 @@ export const AdminDashboardView = () => {
             </div>
 
             <form onSubmit={handleCreateDish} style={styles.addDishForm}>
-              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
+              <div className="responsive-form-grid">
                 <div>
                   <label style={styles.inputLabel}>Dish Name *</label>
                   <input
@@ -555,7 +555,7 @@ export const AdminDashboardView = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="responsive-form-grid">
                 <div>
                   <label style={styles.inputLabel}>Target Restaurant Outlet</label>
                   <select
@@ -658,7 +658,7 @@ const styles = {
   container: {
     maxWidth: '1280px',
     margin: '0 auto',
-    padding: '2rem 1.5rem',
+    padding: 'clamp(1rem, 3vw, 2rem) clamp(0.85rem, 2.5vw, 1.5rem)',
     minHeight: '85vh'
   },
   header: {
@@ -670,7 +670,7 @@ const styles = {
     gap: '1rem'
   },
   title: {
-    fontSize: '2rem',
+    fontSize: 'clamp(1.35rem, 4vw, 2rem)',
     fontWeight: '800'
   },
   subtitle: {
@@ -683,19 +683,22 @@ const styles = {
     backgroundColor: 'rgba(255, 255, 255, 0.04)',
     padding: '0.3rem',
     borderRadius: '12px',
-    border: '1px solid rgba(255, 255, 255, 0.08)'
+    border: '1px solid rgba(255, 255, 255, 0.08)',
+    overflowX: 'auto',
+    maxWidth: '100%'
   },
   tabBtn: {
     background: 'transparent',
     border: 'none',
     color: '#9ca3af',
-    padding: '0.5rem 1rem',
+    padding: '0.5rem 0.85rem',
     borderRadius: '8px',
     cursor: 'pointer',
     fontSize: '0.85rem',
     fontWeight: '600',
     fontFamily: 'var(--font-heading)',
-    transition: 'all 0.2s'
+    transition: 'all 0.2s',
+    whiteSpace: 'nowrap'
   },
   tabBtnActive: {
     backgroundColor: 'rgba(139, 92, 246, 0.25)',
@@ -703,7 +706,7 @@ const styles = {
   },
   statsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
     gap: '1.25rem',
     marginBottom: '2rem'
   },
@@ -793,7 +796,7 @@ const styles = {
   },
   outletsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
     gap: '1.5rem'
   },
   modalBackdrop: {

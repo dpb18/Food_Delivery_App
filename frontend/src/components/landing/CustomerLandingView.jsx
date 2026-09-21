@@ -729,7 +729,7 @@ const styles = {
   },
   heroSection: {
     position: 'relative',
-    padding: '4rem 1.5rem 5rem 1.5rem',
+    padding: 'clamp(2rem, 5vw, 4rem) 1.25rem clamp(2.5rem, 6vw, 5rem) 1.25rem',
     background: 'radial-gradient(circle at 50% 20%, #171d2b 0%, #0a0d14 70%)',
     overflow: 'hidden'
   },
@@ -761,8 +761,8 @@ const styles = {
   },
   heroGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-    gap: '3.5rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+    gap: '2.5rem',
     alignItems: 'center'
   },
   heroLeft: {
@@ -779,10 +779,10 @@ const styles = {
     fontSize: '0.82rem',
     fontWeight: '600',
     color: '#ff7a65',
-    marginBottom: '1.5rem'
+    marginBottom: '1.25rem'
   },
   heroTitle: {
-    fontSize: '3rem',
+    fontSize: 'clamp(2rem, 5.5vw, 3rem)',
     lineHeight: '1.15',
     fontWeight: '800',
     letterSpacing: '-0.03em',
@@ -795,17 +795,17 @@ const styles = {
     WebkitTextFillColor: 'transparent'
   },
   heroSubtitle: {
-    fontSize: '1.1rem',
+    fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
     lineHeight: '1.6',
     color: '#9ca3af',
-    marginBottom: '2.5rem',
+    marginBottom: '2rem',
     maxWidth: '520px'
   },
   featureHighlights: {
     display: 'flex',
     flexDirection: 'column',
     gap: '1rem',
-    marginBottom: '2.5rem'
+    marginBottom: '2rem'
   },
   highlightItem: {
     display: 'flex',
@@ -839,23 +839,25 @@ const styles = {
   trustStats: {
     display: 'flex',
     alignItems: 'center',
-    gap: '1.75rem',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: '1rem',
     paddingTop: '1.5rem',
     borderTop: '1px solid rgba(255, 255, 255, 0.08)'
   },
   statNum: {
-    fontSize: '1.35rem',
+    fontSize: '1.25rem',
     fontWeight: '800',
     color: '#ffffff'
   },
   statLabel: {
-    fontSize: '0.78rem',
+    fontSize: '0.75rem',
     color: '#9ca3af',
     marginTop: '0.15rem'
   },
   statDivider: {
     width: '1px',
-    height: '30px',
+    height: '24px',
     backgroundColor: 'rgba(255, 255, 255, 0.1)'
   },
   heroRight: {
@@ -876,17 +878,17 @@ const styles = {
     backgroundColor: 'rgba(15, 19, 29, 0.6)'
   },
   tabBtn: {
-    padding: '1.1rem 0.6rem',
+    padding: '0.9rem 0.35rem',
     backgroundColor: 'transparent',
     border: 'none',
     borderBottom: '2px solid transparent',
     color: '#9ca3af',
-    fontSize: '0.82rem',
+    fontSize: '0.78rem',
     fontWeight: '600',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '0.4rem',
+    gap: '0.35rem',
     cursor: 'pointer',
     transition: 'all 0.2s ease'
   },
@@ -896,18 +898,18 @@ const styles = {
     borderBottomColor: '#ff5238'
   },
   tabContent: {
-    padding: '2rem'
+    padding: 'clamp(1.25rem, 3.5vw, 2rem)'
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '1.25rem'
+    gap: '1.15rem'
   },
   formHeader: {
-    marginBottom: '0.5rem'
+    marginBottom: '0.35rem'
   },
   formTitle: {
-    fontSize: '1.4rem',
+    fontSize: '1.35rem',
     fontWeight: '700',
     color: '#ffffff',
     margin: 0

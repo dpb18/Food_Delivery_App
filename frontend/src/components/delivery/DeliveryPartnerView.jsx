@@ -331,9 +331,9 @@ export const DeliveryPartnerView = () => {
 
 const styles = {
   container: {
-    maxWidth: '1280px',
+    maxWidth: '1200px',
     margin: '0 auto',
-    padding: '2rem 1.5rem',
+    padding: 'clamp(1rem, 3vw, 2rem) clamp(0.85rem, 2.5vw, 1.5rem)',
     minHeight: '85vh'
   },
   header: {
@@ -355,7 +355,7 @@ const styles = {
     boxShadow: '0 4px 15px rgba(16, 185, 129, 0.35)'
   },
   riderName: {
-    fontSize: '1.6rem',
+    fontSize: 'clamp(1.25rem, 4vw, 1.6rem)',
     fontWeight: '800'
   },
   riderPhone: {
@@ -376,7 +376,7 @@ const styles = {
   },
   metricsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
     gap: '1.25rem',
     marginBottom: '2rem'
   },
@@ -423,7 +423,7 @@ const styles = {
   },
   deliveryFlowGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
     gap: '1.5rem',
     alignItems: 'start'
   },
@@ -508,7 +508,7 @@ const styles = {
   },
   readyGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
     gap: '1.25rem'
   },
   readyCard: {

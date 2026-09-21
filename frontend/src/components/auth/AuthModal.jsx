@@ -110,7 +110,7 @@ export const AuthModal = () => {
       style={styles.backdrop}
       onClick={() => setAuthModal({ isOpen: false, targetPortal: target })}
     >
-      <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div className="modal-responsive" style={styles.modal} onClick={(e) => e.stopPropagation()}>
         {/* Close Button */}
         <button
           style={styles.closeBtn}
@@ -308,6 +308,8 @@ const styles = {
     width: '100%',
     padding: '2rem',
     position: 'relative',
+    maxHeight: '90vh',
+    overflowY: 'auto',
     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)'
   },
   closeBtn: {

@@ -167,7 +167,7 @@ export const CustomerView = () => {
         </div>
 
         {/* 2-COLUMN LAYOUT: LEFT SIDEBAR MENU & RIGHT DISHES LIST */}
-        <div style={styles.restaurantLayout}>
+        <div className="restaurant-layout-responsive">
           {/* LEFT-HAND SIDEBAR MENU & FILTER */}
           <aside style={styles.sidebar}>
             <div className="glass-card" style={styles.sidebarCard}>
@@ -436,7 +436,7 @@ export const CustomerView = () => {
           <h2 style={{ fontSize: '1.25rem' }}>Popular Categories</h2>
           <span style={{ fontSize: '0.85rem', color: '#9ca3af' }}>Click to filter</span>
         </div>
-        <div style={styles.categoryPills}>
+        <div className="no-scrollbar" style={styles.categoryPills}>
           {categories.map((cat) => {
             const isSelected = selectedCategory === cat.name;
             return (
@@ -739,11 +739,11 @@ const styles = {
   container: {
     maxWidth: '1280px',
     margin: '0 auto',
-    padding: '2rem 1.5rem',
+    padding: 'clamp(1rem, 3vw, 2rem) clamp(0.85rem, 2.5vw, 1.5rem)',
     minHeight: '80vh'
   },
   heroSection: {
-    padding: '3rem 2rem',
+    padding: 'clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem)',
     borderRadius: '24px',
     background: 'linear-gradient(135deg, rgba(255, 82, 56, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%)',
     border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -758,13 +758,13 @@ const styles = {
     gap: '1rem'
   },
   mainHeading: {
-    fontSize: '2.5rem',
+    fontSize: 'clamp(1.6rem, 5vw, 2.5rem)',
     fontWeight: '900',
     lineHeight: '1.2'
   },
   heroSub: {
     color: '#9ca3af',
-    fontSize: '1.05rem',
+    fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)',
     lineHeight: '1.5'
   },
   searchBarWrapper: {
@@ -776,6 +776,7 @@ const styles = {
     borderRadius: '16px',
     padding: '0.65rem 1.25rem',
     maxWidth: '520px',
+    width: '100%',
     marginTop: '0.5rem',
     boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)'
   },
@@ -845,7 +846,7 @@ const styles = {
   },
   restaurantsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
     gap: '1.75rem',
     marginBottom: '3.5rem'
   },
@@ -1010,7 +1011,7 @@ const styles = {
   },
   popularDishesGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))',
     gap: '1.5rem'
   },
   popularDishCard: {
@@ -1298,7 +1299,7 @@ const styles = {
   },
   dishesGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))',
     gap: '1.5rem'
   },
   dishCard: {

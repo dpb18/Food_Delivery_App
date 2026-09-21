@@ -199,7 +199,7 @@ export const MyOrdersView = () => {
       {/* LIVE MAP TRACKING MODAL */}
       {activeTrackingOrder && (
         <div style={styles.modalBackdrop} onClick={() => setActiveTrackingOrder(null)}>
-          <div style={styles.modalCard} onClick={(e) => e.stopPropagation()}>
+          <div className="modal-responsive" style={styles.modalCard} onClick={(e) => e.stopPropagation()}>
             <div style={styles.modalHeader}>
               <div>
                 <h3 style={{ fontSize: '1.25rem' }}>
@@ -231,7 +231,7 @@ export const MyOrdersView = () => {
                 riderCoords={[12.9750, 77.6410]}
                 restaurantName={activeTrackingOrder.restaurantName}
                 customerAddress={activeTrackingOrder.deliveryAddress?.streetAddress}
-                height="320px"
+                height="clamp(220px, 45vw, 320px)"
                 showRider={activeTrackingOrder.status !== 'DELIVERED'}
               />
             </div>
@@ -258,7 +258,7 @@ const styles = {
   container: {
     maxWidth: '1000px',
     margin: '0 auto',
-    padding: '2rem 1.5rem',
+    padding: 'clamp(1rem, 3vw, 2rem) clamp(0.85rem, 2.5vw, 1.5rem)',
     minHeight: '80vh'
   },
   header: {
@@ -270,7 +270,7 @@ const styles = {
     gap: '1rem'
   },
   title: {
-    fontSize: '2rem',
+    fontSize: 'clamp(1.4rem, 4vw, 2rem)',
     fontWeight: '800'
   },
   subtitle: {
@@ -280,7 +280,7 @@ const styles = {
   },
   emptyCard: {
     textAlign: 'center',
-    padding: '4rem 2rem',
+    padding: 'clamp(2.5rem, 5vw, 4rem) 1.5rem',
     borderRadius: '24px'
   },
   ordersList: {
@@ -289,7 +289,7 @@ const styles = {
     gap: '1.5rem'
   },
   orderCard: {
-    padding: '1.75rem',
+    padding: 'clamp(1rem, 3vw, 1.75rem)',
     borderRadius: '20px',
     display: 'flex',
     flexDirection: 'column',

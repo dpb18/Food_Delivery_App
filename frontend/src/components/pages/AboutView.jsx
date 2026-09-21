@@ -83,7 +83,7 @@ const styles = {
   container: {
     maxWidth: '1100px',
     margin: '0 auto',
-    padding: '3rem 1.5rem',
+    padding: 'clamp(1.5rem, 4vw, 3rem) clamp(0.85rem, 2.5vw, 1.5rem)',
     minHeight: '80vh'
   },
   heroSection: {
@@ -95,19 +95,19 @@ const styles = {
     marginBottom: '3.5rem'
   },
   heroTitle: {
-    fontSize: '2.75rem',
+    fontSize: 'clamp(1.75rem, 5vw, 2.75rem)',
     fontWeight: '900',
     lineHeight: '1.2'
   },
   heroSub: {
     color: '#9ca3af',
-    fontSize: '1.1rem',
+    fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
     maxWidth: '680px',
     lineHeight: '1.6'
   },
   pillarsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
     gap: '1.75rem',
     marginBottom: '3.5rem'
   },
@@ -174,7 +174,7 @@ const styles = {
   },
   impactStatsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))',
     gap: '1.5rem',
     borderTop: '1px solid rgba(255, 255, 255, 0.08)',
     paddingTop: '1.5rem'

@@ -223,7 +223,7 @@ export const PlaceOrderView = () => {
 
       <h1 style={styles.title}>Place Your Order</h1>
 
-      <form onSubmit={handleConfirmOrder} style={styles.checkoutGrid}>
+      <form onSubmit={handleConfirmOrder} className="responsive-two-col">
         {/* Left Column: Address & Details Form */}
         <div style={styles.leftCol}>
           {/* Address Details */}
@@ -233,7 +233,7 @@ export const PlaceOrderView = () => {
               <h3>1. Delivery Address & Contact</h3>
             </div>
 
-            <div style={styles.formFieldsGrid}>
+            <div className="responsive-form-grid">
               <div>
                 <label style={styles.label}>Recipient Name *</label>
                 <div style={styles.inputWrap}>
@@ -349,7 +349,7 @@ export const PlaceOrderView = () => {
         </div>
 
         {/* Right Column: Order Summary & Place Order CTA */}
-        <div style={styles.rightCol}>
+        <div className="sticky-col-mobile" style={styles.rightCol}>
           <div className="glass-card" style={styles.summaryCard}>
             <h3 style={styles.summaryTitle}>Final Order Summary</h3>
 
@@ -411,7 +411,7 @@ export const PlaceOrderView = () => {
       {/* ANIMATED TICK MARK SUCCESS MODAL */}
       {isOrderPlaced && (
         <div style={styles.successBackdrop}>
-          <div style={styles.successModal}>
+          <div className="modal-responsive" style={styles.successModal}>
             {/* Animated SVG Checkmark */}
             <div style={styles.svgWrapper}>
               <svg className="animated-check" viewBox="0 0 52 52" style={styles.svgCheck}>
@@ -503,7 +503,7 @@ const styles = {
   container: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '2rem 1.5rem',
+    padding: 'clamp(1rem, 3vw, 2rem) clamp(0.85rem, 2.5vw, 1.5rem)',
     minHeight: '80vh'
   },
   backBtn: {
@@ -520,9 +520,9 @@ const styles = {
     fontSize: '0.85rem'
   },
   title: {
-    fontSize: '2rem',
+    fontSize: 'clamp(1.4rem, 4vw, 2rem)',
     fontWeight: '800',
-    marginBottom: '2rem'
+    marginBottom: '1.5rem'
   },
   checkoutGrid: {
     display: 'grid',

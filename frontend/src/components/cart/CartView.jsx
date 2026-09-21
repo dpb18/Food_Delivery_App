@@ -103,7 +103,7 @@ export const CartView = () => {
         <h1 style={styles.pageTitle}>Review Your Cart ({cart.length} items)</h1>
       </div>
 
-      <div style={styles.cartGrid}>
+      <div className="responsive-two-col">
         {/* Left Column: Cart Items & Coupon Holder */}
         <div style={styles.leftCol}>
           {/* Restaurant Banner */}
@@ -275,7 +275,7 @@ export const CartView = () => {
         </div>
 
         {/* Right Column: Order Bill Summary & Place Order CTA */}
-        <div style={styles.rightCol}>
+        <div className="sticky-col-mobile" style={styles.rightCol}>
           <div className="glass-card" style={styles.summaryCard}>
             <h3 style={styles.summaryTitle}>Bill Details</h3>
 
@@ -341,7 +341,7 @@ const styles = {
   container: {
     maxWidth: '1240px',
     margin: '0 auto',
-    padding: '2rem 1.5rem',
+    padding: 'clamp(1rem, 3vw, 2rem) clamp(0.85rem, 2.5vw, 1.5rem)',
     minHeight: '80vh'
   },
   emptyContainer: {
@@ -381,7 +381,7 @@ const styles = {
     fontSize: '0.85rem'
   },
   pageTitle: {
-    fontSize: '1.85rem',
+    fontSize: 'clamp(1.35rem, 4vw, 1.85rem)',
     fontWeight: '800'
   },
   cartGrid: {
@@ -571,7 +571,7 @@ const styles = {
   },
   couponChipsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))',
     gap: '0.85rem'
   },
   couponChip: {

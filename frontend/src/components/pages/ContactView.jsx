@@ -192,7 +192,7 @@ const styles = {
   container: {
     maxWidth: '1100px',
     margin: '0 auto',
-    padding: '3rem 1.5rem',
+    padding: 'clamp(1.5rem, 4vw, 3rem) clamp(0.85rem, 2.5vw, 1.5rem)',
     minHeight: '80vh'
   },
   header: {
@@ -201,26 +201,26 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     gap: '0.75rem',
-    marginBottom: '3rem'
+    marginBottom: '2.5rem'
   },
   title: {
-    fontSize: '2.5rem',
+    fontSize: 'clamp(1.6rem, 5vw, 2.5rem)',
     fontWeight: '900'
   },
   subtitle: {
     color: '#9ca3af',
-    fontSize: '1rem',
+    fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
     maxWidth: '640px',
     lineHeight: '1.5'
   },
   contentGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
     gap: '2rem',
     alignItems: 'start'
   },
   formCard: {
-    padding: '2rem',
+    padding: 'clamp(1.25rem, 3.5vw, 2rem)',
     borderRadius: '24px'
   },
   formTitle: {
@@ -243,7 +243,7 @@ const styles = {
   },
   formRow: {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
     gap: '1rem'
   },
   label: {

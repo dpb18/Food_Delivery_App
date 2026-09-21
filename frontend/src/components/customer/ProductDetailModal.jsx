@@ -31,7 +31,7 @@ export const ProductDetailModal = ({ dish, onClose, restaurant }) => {
 
   return (
     <div style={styles.backdrop} onClick={onClose}>
-      <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div className="modal-responsive" style={styles.modal} onClick={(e) => e.stopPropagation()}>
         {/* Close Button */}
         <button style={styles.closeBtn} onClick={onClose}>
           <X size={20} color="#fff" />
@@ -214,7 +214,7 @@ const styles = {
   },
   imageContainer: {
     position: 'relative',
-    height: '240px',
+    height: 'clamp(180px, 25vw, 240px)',
     overflow: 'hidden'
   },
   modalImage: {
@@ -249,7 +249,7 @@ const styles = {
     gap: '0.3rem'
   },
   modalContent: {
-    padding: '1.5rem',
+    padding: 'clamp(1rem, 3vw, 1.5rem)',
     display: 'flex',
     flexDirection: 'column',
     gap: '1.25rem'
@@ -302,8 +302,8 @@ const styles = {
   },
   macroGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(5, 1fr)',
-    gap: '0.5rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(58px, 1fr))',
+    gap: '0.45rem',
     textAlign: 'center'
   },
   macroCard: {

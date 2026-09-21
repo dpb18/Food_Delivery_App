@@ -3,7 +3,7 @@ import { Flame, ShieldCheck, Heart } from 'lucide-react';
 
 export const Footer = () => {
   return (
-    <footer style={styles.footer}>
+    <footer className="footer-responsive" style={styles.footer}>
       <div style={styles.container}>
         {/* Top Grid */}
         <div style={styles.topGrid}>
