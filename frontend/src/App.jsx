@@ -21,6 +21,8 @@ import { ContactView } from './components/pages/ContactView';
 import { AdminDashboardView } from './components/admin/AdminDashboardView';
 import { DeliveryPartnerView } from './components/delivery/DeliveryPartnerView';
 
+import { ScrollToTop } from './components/common/ScrollToTop';
+
 // Route component gating between Guest Landing Page and Authenticated Customer Portal
 const CustomerPortalRoute = () => {
   const { customerSession } = useApp();
@@ -32,6 +34,7 @@ export default function App() {
     <BrowserRouter>
       <AppProvider>
         <CartProvider>
+          <ScrollToTop />
           <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             {/* Dynamic Navbar with Home, Orders, About, Contact, Cart, Profile */}
             <Navbar />

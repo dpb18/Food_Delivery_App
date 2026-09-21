@@ -328,207 +328,202 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* MOBILE SLIDE-OUT DRAWER */}
-        {mobileMenuOpen && (
+      </nav>
+
+      {/* MOBILE SLIDE-OUT DRAWER (Rendered outside <nav> to escape backdrop-filter stacking context) */}
+      {mobileMenuOpen && (
+        <div
+          className="mobile-drawer-backdrop"
+          onClick={() => setMobileMenuOpen(false)}
+        >
           <div
-            className="mobile-drawer-backdrop"
-            onClick={() => setMobileMenuOpen(false)}
+            className="mobile-drawer-content"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className="mobile-drawer-content"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div>
-                {/* Drawer Header */}
-                <div style={styles.drawerHeader}>
-                  <div style={styles.brand}>
-                    <div style={styles.logoBadge}>
-                      <Flame size={20} color="#ffffff" />
+            <div>
+              {/* Drawer Header */}
+              <div style={styles.drawerHeader}>
+                <div style={styles.brand}>
+                  <div style={styles.logoBadge}>
+                    <Flame size={20} color="#ffffff" />
+                  </div>
+                  <div>
+                    <div style={styles.brandTitle}>
+                      Feast<span style={{ color: '#ff5238' }}>Hub</span>
                     </div>
-                    <div>
-                      <div style={styles.brandTitle}>
-                        Feast<span style={{ color: '#ff5238' }}>Hub</span>
-                      </div>
-                      <div style={styles.brandSub}>
-                        {isAdminPath ? 'Admin Console' : isDeliveryPath ? 'Rider GPS' : 'Gourmet Delivery'}
-                      </div>
+                    <div style={styles.brandSub}>
+                      {isAdminPath ? 'Admin Console' : isDeliveryPath ? 'Rider GPS' : 'Gourmet Delivery'}
                     </div>
                   </div>
-                  <button
-                    onClick={() => setMobileMenuOpen(false)}
-                    style={styles.drawerCloseBtn}
-                  >
-                    <X size={18} color="#fff" />
-                  </button>
                 </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={styles.drawerCloseBtn}
+                >
+                  <X size={18} color="#fff" />
+                </button>
+              </div>
 
-                {/* Delivery Location Banner */}
-                {!isAdminPath && !isDeliveryPath && (
-                  <div style={styles.drawerLocationBox}>
-                    <MapPin size={16} color="#ff5238" />
-                    <div>
-                      <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>Delivering to:</div>
-                      <strong style={{ fontSize: '0.85rem', color: '#f3f4f6' }}>
-                        Indiranagar, Bengaluru
-                      </strong>
-                    </div>
+              {/* Delivery Location Banner */}
+              {!isAdminPath && !isDeliveryPath && (
+                <div style={styles.drawerLocationBox}>
+                  <MapPin size={16} color="#ff5238" />
+                  <div>
+                    <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>Delivering to:</div>
+                    <strong style={{ fontSize: '0.85rem', color: '#f3f4f6' }}>
+                      Indiranagar, Bengaluru
+                    </strong>
                   </div>
-                )}
+                </div>
+              )}
 
-                {/* User Info Bar if logged in */}
-                {activeUser && (
-                  <div style={styles.drawerUserBox}>
-                    {activeUser?.avatar ? (
-                      <img
-                        src={activeUser.avatar}
-                        alt={displayName}
-                        style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid #ff5238' }}
-                      />
-                    ) : (
-                      <div style={{ ...styles.navAvatarPlaceholder, width: '40px', height: '40px' }}>
-                        <User size={18} color="#ff7a65" />
-                      </div>
-                    )}
-                    <div style={{ flexGrow: 1, overflow: 'hidden' }}>
-                      <div style={{ fontWeight: '700', fontSize: '0.92rem', color: '#fff' }}>
-                        {activeUser.fullName}
-                      </div>
-                      <div style={{ fontSize: '0.75rem', color: '#9ca3af', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {activeUser.email}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Nav Links */}
-                <div style={styles.drawerNavLinks}>
-                  <div
-                    onClick={() => handleNavClick('/')}
-                    style={{
-                      ...styles.drawerNavLink,
-                      ...(pathname === '/' || pathname === '/user' ? styles.drawerNavLinkActive : {})
-                    }}
-                  >
-                    <Home size={18} color={pathname === '/' ? '#ff5238' : '#9ca3af'} />
-                    <span>Home</span>
-                  </div>
-
-                  <div
-                    onClick={() => handleNavClick('/my-orders')}
-                    style={{
-                      ...styles.drawerNavLink,
-                      ...(pathname === '/my-orders' ? styles.drawerNavLinkActive : {})
-                    }}
-                  >
-                    <Package size={18} color={pathname === '/my-orders' ? '#ff5238' : '#9ca3af'} />
-                    <span>My Orders</span>
-                  </div>
-
-                  <div
-                    onClick={() => handleNavClick('/about')}
-                    style={{
-                      ...styles.drawerNavLink,
-                      ...(pathname === '/about' ? styles.drawerNavLinkActive : {})
-                    }}
-                  >
-                    <Info size={18} color={pathname === '/about' ? '#ff5238' : '#9ca3af'} />
-                    <span>About FeastHub</span>
-                  </div>
-
-                  <div
-                    onClick={() => handleNavClick('/contact')}
-                    style={{
-                      ...styles.drawerNavLink,
-                      ...(pathname === '/contact' ? styles.drawerNavLinkActive : {})
-                    }}
-                  >
-                    <PhoneCall size={18} color={pathname === '/contact' ? '#ff5238' : '#9ca3af'} />
-                    <span>Contact Support</span>
-                  </div>
-
-                  {activeUser && (
-                    <div
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        setIsProfileModalOpen(true);
-                      }}
-                      style={styles.drawerNavLink}
-                    >
-                      <User size={18} color="#ff5238" />
-                      <span>Edit My Profile</span>
+              {/* User Info Bar if logged in */}
+              {activeUser && (
+                <div style={styles.drawerUserBox}>
+                  {activeUser?.avatar ? (
+                    <img
+                      src={activeUser.avatar}
+                      alt={displayName}
+                      style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid #ff5238' }}
+                    />
+                  ) : (
+                    <div style={{ ...styles.navAvatarPlaceholder, width: '40px', height: '40px' }}>
+                      <User size={18} color="#ff7a65" />
                     </div>
                   )}
-                </div>
-
-                {/* Portal Switcher for Quick Access */}
-                <div style={styles.drawerPortalsSection}>
-                  <div style={styles.drawerSectionTitle}>PORTALS & PLATFORMS</div>
-                  <div
-                    onClick={() => handleNavClick('/admin')}
-                    style={{
-                      ...styles.drawerPortalCard,
-                      borderColor: isAdminPath ? '#8b5cf6' : 'rgba(255,255,255,0.08)'
-                    }}
-                  >
-                    <ShieldCheck size={18} color="#8b5cf6" />
-                    <div>
-                      <div style={{ fontWeight: '700', fontSize: '0.85rem' }}>Admin Portal</div>
-                      <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>Kitchen & Order Flow</div>
+                  <div style={{ flexGrow: 1, overflow: 'hidden' }}>
+                    <div style={{ fontWeight: '700', fontSize: '0.92rem', color: '#fff' }}>
+                      {activeUser.fullName}
                     </div>
-                  </div>
-
-                  <div
-                    onClick={() => handleNavClick('/delivery_partner')}
-                    style={{
-                      ...styles.drawerPortalCard,
-                      borderColor: isDeliveryPath ? '#10b981' : 'rgba(255,255,255,0.08)'
-                    }}
-                  >
-                    <Bike size={18} color="#10b981" />
-                    <div>
-                      <div style={{ fontWeight: '700', fontSize: '0.85rem' }}>Delivery Fleet</div>
-                      <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>Rider Map & OTP Verify</div>
+                    <div style={{ fontSize: '0.75rem', color: '#9ca3af', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {activeUser.email}
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
 
-              {/* Bottom Actions */}
-              <div style={styles.drawerFooter}>
-                {activeUser ? (
-                  <button
+              {/* Nav Links */}
+              <div style={styles.drawerNavLinks}>
+                <div
+                  onClick={() => handleNavClick('/')}
+                  style={{
+                    ...styles.drawerNavLink,
+                    ...(pathname === '/' || pathname === '/user' ? styles.drawerNavLinkActive : {})
+                  }}
+                >
+                  <Home size={18} color={pathname === '/' ? '#ff5238' : '#9ca3af'} />
+                  <span>Home</span>
+                </div>
+
+                <div
+                  onClick={() => handleNavClick('/my-orders')}
+                  style={{
+                    ...styles.drawerNavLink,
+                    ...(pathname === '/my-orders' ? styles.drawerNavLinkActive : {})
+                  }}
+                >
+                  <Package size={18} color={pathname === '/my-orders' ? '#ff5238' : '#9ca3af'} />
+                  <span>My Orders</span>
+                </div>
+
+                <div
+                  onClick={() => handleNavClick('/about')}
+                  style={{
+                    ...styles.drawerNavLink,
+                    ...(pathname === '/about' ? styles.drawerNavLinkActive : {})
+                  }}
+                >
+                  <Info size={18} color={pathname === '/about' ? '#ff5238' : '#9ca3af'} />
+                  <span>About FeastHub</span>
+                </div>
+
+                <div
+                  onClick={() => handleNavClick('/contact')}
+                  style={{
+                    ...styles.drawerNavLink,
+                    ...(pathname === '/contact' ? styles.drawerNavLinkActive : {})
+                  }}
+                >
+                  <PhoneCall size={18} color={pathname === '/contact' ? '#ff5238' : '#9ca3af'} />
+                  <span>Contact Support</span>
+                </div>
+
+                {activeUser && (
+                  <div
                     onClick={() => {
                       setMobileMenuOpen(false);
-                      logout(isAdminPath ? 'admin' : isDeliveryPath ? 'delivery' : 'customer');
-                      navigate('/user');
+                      setIsProfileModalOpen(true);
                     }}
-                    style={styles.drawerLogoutBtn}
+                    style={styles.drawerNavLink}
                   >
-                    <LogOut size={16} />
-                    <span>Sign Out</span>
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      handleNavClick('/user');
-                    }}
-                    style={styles.drawerSignInBtn}
-                  >
-                    <User size={16} />
-                    <span>Sign In / Create Account</span>
-                  </button>
+                    <User size={18} color="#ff5238" />
+                    <span>Edit My Profile</span>
+                  </div>
                 )}
               </div>
+
+              {/* Portal Switcher for Quick Access */}
+              <div style={styles.drawerPortalsSection}>
+                <div style={styles.drawerSectionTitle}>PORTALS & PLATFORMS</div>
+                <div
+                  onClick={() => handleNavClick('/admin')}
+                  style={{
+                    ...styles.drawerPortalCard,
+                    borderColor: isAdminPath ? '#8b5cf6' : 'rgba(255,255,255,0.08)'
+                  }}
+                >
+                  <ShieldCheck size={18} color="#8b5cf6" />
+                  <div>
+                    <div style={{ fontWeight: '700', fontSize: '0.85rem' }}>Admin Portal</div>
+                    <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>Kitchen & Order Flow</div>
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => handleNavClick('/delivery_partner')}
+                  style={{
+                    ...styles.drawerPortalCard,
+                    borderColor: isDeliveryPath ? '#10b981' : 'rgba(255,255,255,0.08)'
+                  }}
+                >
+                  <Bike size={18} color="#10b981" />
+                  <div>
+                    <div style={{ fontWeight: '700', fontSize: '0.85rem' }}>Delivery Fleet</div>
+                    <div style={{ fontSize: '0.72rem', color: '#9ca3af' }}>Rider Map & OTP Verify</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Actions */}
+            <div style={styles.drawerFooter}>
+              {activeUser ? (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    logout(isAdminPath ? 'admin' : isDeliveryPath ? 'delivery' : 'customer');
+                    navigate('/user');
+                  }}
+                  style={styles.drawerLogoutBtn}
+                >
+                  <LogOut size={16} />
+                  <span>Sign Out</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    handleNavClick('/user');
+                  }}
+                  style={styles.drawerSignInBtn}
+                >
+                  <User size={16} />
+                  <span>Sign In / Create Account</span>
+                </button>
+              )}
             </div>
           </div>
-        )}
-
-        {/* Global Profile Modal */}
-        <ProfileModal
-          isOpen={isProfileModalOpen}
-          onClose={() => setIsProfileModalOpen(false)}
-        />
-      </nav>
+        </div>
+      )}
 
       {/* MOBILE BOTTOM NAVIGATION BAR (Visible on screens < 768px for customer flows) */}
       {!isAdminPath && !isDeliveryPath && (
