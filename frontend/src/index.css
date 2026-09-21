@@ -503,9 +503,21 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: 1fr !important;
     gap: 1.5rem !important;
   }
-  .sticky-col-mobile {
+  .sticky-col-mobile,
+  .restaurant-sidebar-responsive {
     position: static !important;
     top: auto !important;
+  }
+  .side-categories-mobile {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    gap: 0.5rem !important;
+    padding-bottom: 0.4rem !important;
+  }
+  .side-categories-mobile > div {
+    flex-shrink: 0 !important;
   }
 }
 

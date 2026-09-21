@@ -169,7 +169,7 @@ export const CustomerView = () => {
         {/* 2-COLUMN LAYOUT: LEFT SIDEBAR MENU & RIGHT DISHES LIST */}
         <div className="restaurant-layout-responsive">
           {/* LEFT-HAND SIDEBAR MENU & FILTER */}
-          <aside style={styles.sidebar}>
+          <aside className="restaurant-sidebar-responsive" style={styles.sidebar}>
             <div className="glass-card" style={styles.sidebarCard}>
               <div style={styles.sidebarHeader}>
                 <Filter size={18} color="#ff5238" />
@@ -210,7 +210,7 @@ export const CustomerView = () => {
               {/* Categories Navigation */}
               <div style={styles.filterSection}>
                 <div style={styles.filterSectionTitle}>Cuisines & Sections</div>
-                <div style={styles.sideCategoriesList}>
+                <div className="side-categories-mobile no-scrollbar" style={styles.sideCategoriesList}>
                   {restaurantCategories.map((cat) => {
                     const isSelected = restaurantMenuCategory === cat.name;
                     const count = menuItems.filter(
@@ -1120,7 +1120,7 @@ const styles = {
   },
   restaurantHero: {
     position: 'relative',
-    height: '280px',
+    height: 'clamp(200px, 32vw, 280px)',
     borderRadius: '24px',
     overflow: 'hidden',
     marginBottom: '2rem'
@@ -1134,7 +1134,7 @@ const styles = {
     position: 'absolute',
     inset: 0,
     background: 'linear-gradient(180deg, rgba(8, 12, 20, 0.2) 0%, rgba(8, 12, 20, 0.95) 100%)',
-    padding: '2rem',
+    padding: 'clamp(1rem, 3vw, 2rem)',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
@@ -1153,7 +1153,7 @@ const styles = {
     color: '#fff'
   },
   heroTitle: {
-    fontSize: '2rem',
+    fontSize: 'clamp(1.4rem, 4.5vw, 2rem)',
     fontWeight: '900'
   },
   heroDesc: {

@@ -518,6 +518,7 @@ export const INITIAL_ORDERS = [
   {
     id: 84920,
     customerId: 1,
+    customerEmail: 'dhiraj@feasthub.com',
     customerName: 'Dhiraj Sharma',
     customerPhone: '+91 98765 43210',
     restaurantId: 1,

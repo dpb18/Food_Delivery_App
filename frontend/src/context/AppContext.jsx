@@ -125,7 +125,7 @@ export const AppProvider = ({ children }) => {
   const syncOrders = useCallback(async () => {
     try {
       const data = await ordersApi.fetchOrders();
-      if (data && Array.isArray(data) && data.length > 0) {
+      if (data && Array.isArray(data)) {
         setOrders(data);
       }
     } catch (e) {
@@ -478,6 +478,7 @@ export const AppProvider = ({ children }) => {
     const orderPayload = {
       id: newOrderId,
       customerId: customerSession?.id || 1,
+      customerEmail: customerSession?.email || '',
       customerName: customerSession?.fullName || 'Guest Customer',
       customerPhone: customerSession?.phone || '+91 98765 43210',
       restaurantId: cartRestaurant.id,
@@ -527,10 +528,18 @@ export const AppProvider = ({ children }) => {
     try {
       const created = await ordersApi.createOrder(newOrder);
       const merged = { ...newOrder, ...(created || {}) };
-      setOrders((prev) => [merged, ...prev]);
+      setOrders((prev) => {
+        const next = [merged, ...prev];
+        try { localStorage.setItem('feasthub_orders', JSON.stringify(next)); } catch (e) {}
+        return next;
+      });
       return merged;
     } catch (e) {
-      setOrders((prev) => [newOrder, ...prev]);
+      setOrders((prev) => {
+        const next = [newOrder, ...prev];
+        try { localStorage.setItem('feasthub_orders', JSON.stringify(next)); } catch (err) {}
+        return next;
+      });
       return newOrder;
     }
   };

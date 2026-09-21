@@ -25,6 +25,30 @@ export const MyOrdersView = () => {
 
   const [activeTrackingOrder, setActiveTrackingOrder] = useState(null);
 
+  // Filter orders specifically for the logged-in customer session
+  const myOrders = React.useMemo(() => {
+    if (!customerSession) return [];
+    return orders.filter((order) => {
+      // 1. Match by customerEmail if available
+      if (order.customerEmail && customerSession.email) {
+        return order.customerEmail.trim().toLowerCase() === customerSession.email.trim().toLowerCase();
+      }
+      // 2. Match by customerId if available
+      if (order.customerId && customerSession.id && String(order.customerId) === String(customerSession.id)) {
+        // ID 1 is reserved for the initial demo user dhiraj@feasthub.com
+        if (order.customerId === 1) {
+          return customerSession.email === 'dhiraj@feasthub.com' || customerSession.id === 1;
+        }
+        return true;
+      }
+      // 3. Seed demo order fallback
+      if (order.customerId === 1 && customerSession.email === 'dhiraj@feasthub.com') {
+        return true;
+      }
+      return false;
+    });
+  }, [orders, customerSession]);
+
   const getStatusBadge = (status) => {
     switch (status) {
       case 'DELIVERED':
@@ -71,7 +95,7 @@ export const MyOrdersView = () => {
         </Link>
       </div>
 
-      {orders.length === 0 ? (
+      {myOrders.length === 0 ? (
         <div className="glass-card" style={styles.emptyCard}>
           <Package size={48} color="#9ca3af" style={{ margin: '0 auto 1rem auto' }} />
           <h2>No orders placed yet</h2>
@@ -84,7 +108,7 @@ export const MyOrdersView = () => {
         </div>
       ) : (
         <div style={styles.ordersList}>
-          {orders.map((order) => {
+          {myOrders.map((order) => {
             const isCompleted = order.status === 'DELIVERED';
 
             return (
