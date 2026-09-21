@@ -1,5 +1,5 @@
 // Frontend API Service Layer connecting to Spring Boot 3 Backend
-const API_BASE_URL = '/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 export const authStorage = {
   getToken: () => localStorage.getItem('feasthub_token'),
