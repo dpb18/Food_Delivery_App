@@ -1,0 +1,179 @@
+{
+  "platform": "FeastHub Full-Stack Food Delivery Platform",
+  "version": "1.0.0",
+  "architecture": {
+    "frontend": "React 19 + React Router DOM + Context API + Leaflet Maps",
+    "backend": "Spring Boot 3.x RESTful Web Services + Spring Data JPA",
+    "database": "PostgreSQL / MySQL / H2 Relational Schema",
+    "security": "Role-Based Access Control (RBAC) + JWT Authentication"
+  },
+  "url_routing_specification": [
+    {
+      "path": "/",
+      "alias": "/user",
+      "portal": "CUSTOMER",
+      "access": "PUBLIC",
+      "description": "Customer homepage with search, categories, restaurants, and popular dishes."
+    },
+    {
+      "path": "/restaurant/:id",
+      "portal": "CUSTOMER",
+      "access": "PUBLIC",
+      "description": "Restaurant detailed view with 2-column layout: left menu & filter sidebar, right dish grid."
+    },
+    {
+      "path": "/cart",
+      "portal": "CUSTOMER",
+      "access": "PUBLIC",
+      "description": "Dedicated cart page with item management, subtotal calculation, coupon holder, and order summary."
+    },
+    {
+      "path": "/checkout",
+      "portal": "CUSTOMER",
+      "access": "AUTHENTICATED_CUSTOMER",
+      "description": "Place order page capturing delivery address, phone, payment method, with animated confirmation tick."
+    },
+    {
+      "path": "/my-orders",
+      "portal": "CUSTOMER",
+      "access": "AUTHENTICATED_CUSTOMER",
+      "description": "My Orders list page showing order history, live status badges, OTP cards, and live GPS map tracking."
+    },
+    {
+      "path": "/about",
+      "portal": "GENERAL",
+      "access": "PUBLIC",
+      "description": "About Us company overview, culinary standards, and mission."
+    },
+    {
+      "path": "/contact",
+      "portal": "GENERAL",
+      "access": "PUBLIC",
+      "description": "Contact Us page with support form, hotline numbers, and FAQ assistance."
+    },
+    {
+      "path": "/admin",
+      "portal": "ADMIN",
+      "access": "ROLE_ADMIN_ONLY (Password Required)",
+      "credentials": {
+        "demo_email": "admin@feasthub.com",
+        "demo_password": "admin123"
+      },
+      "description": "Admin console for live kitchen queue management, revenue metrics, and AI nutrition dish creator."
+    },
+    {
+      "path": "/delivery_partner",
+      "portal": "DELIVERY_PARTNER",
+      "access": "ROLE_DELIVERY_PARTNER_ONLY (Password Required)",
+      "credentials": {
+        "demo_email": "vikram@feasthub.com",
+        "demo_password": "rider123"
+      },
+      "description": "Delivery partner portal for online/offline toggling, order acceptance, GPS routing, and OTP delivery verification."
+    }
+  ],
+  "coupons": [
+    {
+      "code": "FEAST50",
+      "discountPercent": 50,
+      "maxDiscount": 150,
+      "minOrder": 200,
+      "description": "50% OFF up to ₹150 on your order"
+    },
+    {
+      "code": "FREEDEL",
+      "discountPercent": 0,
+      "freeDelivery": true,
+      "minOrder": 150,
+      "description": "Zero Delivery Fee on orders above ₹150"
+    },
+    {
+      "code": "GOURMET20",
+      "discountPercent": 20,
+      "maxDiscount": 200,
+      "minOrder": 350,
+      "description": "Flat 20% OFF on fine dining and gourmet orders"
+    }
+  ],
+  "order_state_machine": {
+    "states": [
+      {
+        "status": "PLACED",
+        "actor": "CUSTOMER",
+        "next": "PREPARING",
+        "description": "Customer successfully places order on /checkout; 4-digit OTP is auto-generated."
+      },
+      {
+        "status": "PREPARING",
+        "actor": "ADMIN_KITCHEN",
+        "next": "READY_FOR_PICKUP",
+        "description": "Kitchen accepts order and begins food preparation."
+      },
+      {
+        "status": "READY_FOR_PICKUP",
+        "actor": "ADMIN_KITCHEN",
+        "next": "OUT_FOR_DELIVERY",
+        "description": "Food packed and made visible to active delivery riders."
+      },
+      {
+        "status": "OUT_FOR_DELIVERY",
+        "actor": "DELIVERY_PARTNER",
+        "next": "DELIVERED",
+        "description": "Rider accepts trip; live Leaflet GPS navigation route begins."
+      },
+      {
+        "status": "DELIVERED",
+        "actor": "DELIVERY_PARTNER_VERIFICATION",
+        "next": "COMPLETED",
+        "description": "Rider enters customer's 4-digit OTP; system validates match, marks delivered, and credits earnings."
+      }
+    ]
+  },
+  "api_endpoints": [
+    {
+      "method": "POST",
+      "endpoint": "/api/auth/login",
+      "payload": { "email": "string", "password": "string", "role": "string" },
+      "response": { "token": "jwt_string", "user": "object" }
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/auth/register",
+      "payload": { "fullName": "string", "email": "string", "phone": "string", "password": "string", "role": "string" },
+      "response": { "message": "User registered successfully", "userId": "number" }
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/restaurants",
+      "response": "array_of_restaurants"
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/restaurants/:id/menu",
+      "response": "array_of_menu_items_with_ai_nutrition"
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "payload": { "items": "array", "addressId": "number", "paymentMethod": "string", "couponCode": "string" },
+      "response": { "orderId": "number", "deliveryOtp": "string", "status": "PLACED" }
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/orders/my-orders",
+      "response": "array_of_orders"
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/admin/orders/:id/status",
+      "payload": { "status": "string" },
+      "response": { "success": true }
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/delivery/orders/:id/verify-otp",
+      "payload": { "enteredOtp": "string" },
+      "response": { "verified": true, "status": "DELIVERED" }
+    }
+  ]
+}

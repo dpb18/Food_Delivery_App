@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Delivery Platform - Database Schema & ER Diagram</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #131b2e;
+      --bg-card: rgba(26, 36, 60, 0.6);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --accent-orange: #ff5e3a;
+      --accent-green: #10b981;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 94, 58, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
+    }
+
+    header {
+      max-width: 1280px;
+      margin: 0 auto 2.5rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 94, 58, 0.15);
+      color: #ff7a5c;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      width: fit-content;
+      border: 1px solid rgba(255, 94, 58, 0.3);
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 30%, #9ca3af 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 750px;
+      line-height: 1.6;
+    }
+
+    .panels-grid {
+      max-width: 1280px;
+      margin: 0 auto 2.5rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .panel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .panel-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .panel-card.customer { border-top: 4px solid var(--accent-orange); }
+    .panel-card.admin { border-top: 4px solid var(--accent-purple); }
+    .panel-card.delivery { border-top: 4px solid var(--accent-green); }
+
+    .panel-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .panel-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .diagram-container {
+      max-width: 1280px;
+      margin: 0 auto 3rem auto;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2rem;
+      overflow-x: auto;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+
+    .diagram-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .diagram-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .key-highlights {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .highlight-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+
+    .highlight-box h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ff9800;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-box p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">Day 1 Architecture Milestone</div>
+    <h1>Food Delivery Platform Schema & ER Diagram</h1>
+    <p class="subtitle">
+      Comprehensive database model powering the three interconnected portals: Customer Ordering, Admin Platform Management, and Delivery Partner with Map Routing & OTP verification.
+    </p>
+  </header>
+
+  <div class="panels-grid">
+    <div class="panel-card customer">
+      <div class="panel-title">🛍️ Customer Portal</div>
+      <p class="panel-desc">
+        Browses <code>restaurants</code> and <code>menu_items</code>. Creates <code>orders</code> and saves <code>addresses</code>. Receives the auto-generated 4-digit <code>delivery_otp</code> to share with the rider.
+      </p>
+    </div>
+    <div class="panel-card admin">
+      <div class="panel-title">🛠️ Admin Dashboard</div>
+      <p class="panel-desc">
+        Onboards and manages <code>restaurants</code> and <code>categories</code>. Manages dish prices and in-stock toggles. Monitors platform orders and advances status from <code>PLACED</code> ➔ <code>PREPARING</code> ➔ <code>READY_FOR_PICKUP</code>.
+      </p>
+    </div>
+    <div class="panel-card delivery">
+      <div class="panel-title">🛵 Delivery Partner Panel</div>
+      <p class="panel-desc">
+        Toggles status (<code>ONLINE</code>/<code>OFFLINE</code>), accepts orders ready for pickup, navigates via interactive route map using restaurant & customer coordinates, and completes delivery via <code>delivery_otp</code> verification.
+      </p>
+    </div>
+  </div>
+
+  <section class="diagram-container">
+    <div class="diagram-header">
+      <h2>📊 Visual Entity-Relationship Diagram</h2>
+      <span style="font-size: 0.85rem; color: var(--text-muted);">Scroll horizontally if needed</span>
+    </div>
+    
+    <div class="mermaid">
+    erDiagram
+        USERS ||--o| DELIVERY_PARTNERS : "1:1 profile"
+        USERS ||--o{ ADDRESSES : "owns (1:N)"
+        USERS ||--o{ ORDERS : "places (1:N)"
+        
+        RESTAURANTS ||--o{ MENU_ITEMS : "offers (1:N)"
+        RESTAURANTS ||--o{ ORDERS : "receives (1:N)"
+        
+        CATEGORIES ||--o{ MENU_ITEMS : "categorizes (1:N)"
+        
+        DELIVERY_PARTNERS ||--o{ ORDERS : "delivers (1:N)"
+        
+        ADDRESSES ||--o{ ORDERS : "destination (1:N)"
+        
+        ORDERS ||--|{ ORDER_ITEMS : "contains (1:N)"
+        MENU_ITEMS ||--o{ ORDER_ITEMS : "ordered as (1:N)"
+
+        USERS {
+            bigint id PK
+            string full_name
+            string email UK
+            string phone
+            string role "CUSTOMER / ADMIN / DELIVERY_PARTNER"
+            timestamp created_at
+        }
+
+        ADDRESSES {
+            bigint id PK
+            bigint user_id FK
+            string street_address
+            string city
+            decimal latitude "Map Pin"
+            decimal longitude "Map Pin"
+            boolean is_default
+        }
+
+        DELIVERY_PARTNERS {
+            bigint id PK
+            bigint user_id FK
+            string vehicle_type "BIKE / SCOOTER / CAR"
+            string vehicle_number
+            string status "ONLINE / OFFLINE / BUSY"
+            decimal current_latitude "Live GPS"
+            decimal current_longitude "Live GPS"
+            decimal total_earnings
+        }
+
+        RESTAURANTS {
+            bigint id PK
+            string name
+            string address
+            decimal latitude "Outlet GPS"
+            decimal longitude "Outlet GPS"
+            decimal rating
+            int delivery_time_mins
+            decimal delivery_fee
+            boolean is_active
+        }
+
+        CATEGORIES {
+            bigint id PK
+            string name UK
+            string icon_url
+        }
+
+        MENU_ITEMS {
+            bigint id PK
+            bigint restaurant_id FK
+            bigint category_id FK
+            string name
+            decimal price
+            boolean is_veg
+            boolean is_available
+        }
+
+        ORDERS {
+            bigint id PK
+            bigint customer_id FK
+            bigint restaurant_id FK
+            bigint delivery_partner_id FK
+            bigint address_id FK
+            decimal subtotal
+            decimal delivery_fee
+            decimal total_amount
+            string status "PLACED / PREPARING / READY / OUT / DELIVERED"
+            string delivery_otp "4-digit OTP"
+            boolean otp_verified
+            string payment_status
+        }
+
+        ORDER_ITEMS {
+            bigint id PK
+            bigint order_id FK
+            bigint menu_item_id FK
+            int quantity
+            decimal unit_price "Price Snapshot"
+            decimal subtotal
+        }
+    </div>
+  </section>
+
+  <div class="key-highlights">
+    <div class="highlight-box">
+      <h3>🔐 OTP Delivery Verification</h3>
+      <p>A 4-digit code generated on order creation. Customer sees it on tracking; Rider must input this OTP to transition the order to <code>DELIVERED</code>.</p>
+    </div>
+    <div class="highlight-box">
+      <h3>🗺️ Map Coordinates</h3>
+      <p><code>latitude</code> and <code>longitude</code> on both restaurants and customer addresses feed directly into the Leaflet routing map.</p>
+    </div>
+    <div class="highlight-box">
+      <h3>🧾 Price Snapshots</h3>
+      <p><code>order_items.unit_price</code> captures the historical price at the moment of checkout, ensuring past receipts never change.</p>
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#131b2e',
+        primaryColor: '#1e293b',
+        primaryTextColor: '#f8fafc',
+        primaryBorderColor: '#475569',
+        lineColor: '#38bdf8',
+        secondaryColor: '#0f172a',
+        tertiaryColor: '#1e293b'
+      }
+    });
+  </script>
+</body>
+</html>
